@@ -1,12 +1,11 @@
-import random as rand
+import random as random
 import tkinter as tk
 from tkinter import simpledialog
 
 
 Root = tk.Tk()
-
 Root.withdraw()
-# the input dialog
+
 player1Name = simpledialog.askstring(title="Welcome", prompt='First player type your name: ')
 
 print("Hello", player1Name)
@@ -20,3 +19,7 @@ print("Ready...")
 print("3")
 print("2")
 print("1")
+
+coinFlip = random.randint(0, 1)
+if coinFlip == 0 :
+    P
