@@ -22,4 +22,10 @@ print("1")
 
 coinFlip = random.randint(0, 1)
 if coinFlip == 0 :
-    P
+    player1 = player1Name
+    player2 = player2Name
+if coinFlip == 1
+    player1 = player2Name
+    player2 = player1Name
+
+print(player1 ", your ")
