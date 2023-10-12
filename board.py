@@ -15,30 +15,31 @@ class ButtonGrid:
             button.grid(row=0, column=i+1, padx=5, pady=5)
             self.buttons.append(button)
         # player 1's mancala
-        mancala = tk.Button(root, text='0', pady=20, command=lambda i=7: self.holeClick(i))
+        mancala = tk.Button(root, text='0', pady=20, command=lambda i=6: self.holeClick(i))
         mancala.grid(row=0, column=8, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
         # player 2's row (sets up backwards in order to continue flow of play)
-        for i in range(13,7,-1):
+        for i in range(7,13):
             button = tk.Button(root, text='4', command=lambda i=i: self.holeClick(i))
-            button.grid(row=1, column=14-i, padx=5, pady=5)
+            button.grid(row=1, column=13-i, padx=5, pady=5)
             self.buttons.append(button)
         # player 2's mancala
-        mancala = tk.Button(root, text='0', pady=20, command=lambda i=14: self.holeClick(i))
+        mancala = tk.Button(root, text='0', pady=20, command=lambda i=13: self.holeClick(i))
         mancala.grid(row=0, column=0, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
 
+    # returns the # of stones in the specified hole
     def getStoneCount(self,i):
         holeCount = int(self.buttons[i].cget("text"))
-
-
 
     def incrementStoneCount(self, i):
         old = self.getStoneCount(i)
         self.buttons[i].config(text=(i+1))
 
     def holeClick(self, i):
+        self.buttons[i].config(text=0)
         pickedup = int(self.buttons[i].cget("text"))
+        print(i)
         while pickedup != 0:
             self.incrementStoneCount(i+1)
             pickedup=pickedup-1
