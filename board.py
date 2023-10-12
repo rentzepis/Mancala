@@ -1,49 +1,54 @@
 import tkinter as tk
 
 class ButtonGrid:
+    # sets up board
+    # root is window to be written into (Tk object), p1 is player 1's name (str), p2 is player 2's name (str)
     def __init__(self, root, p1, p2):
         self.player1 = p1
         self.player2 = p2
 
-
         self.buttons = []
 
-        mancala = tk.Button(root, text='0', pady=20, command=lambda i=0: self.holeclick(i))
-        mancala.grid(row=0, column=0, padx=5, pady=5, rowspan=2)
-        self.buttons.append(mancala)
-
-        for i in range(1,7):
-            button = tk.Button(root, text='4', command=lambda i=i: self.holeclick(i))
-            button.grid(row=0, column=i, padx=5, pady=5)
+        # player 1's row
+        for i in range(6):
+            button = tk.Button(root, text=f'hole {i}', command=lambda i=i: self.holeclick(i))
+            button.grid(row=0, column=i+1, padx=5, pady=5)
             self.buttons.append(button)
-
+        # player 1's mancala
         mancala = tk.Button(root, text='0', pady=20, command=lambda i=7: self.holeclick(i))
         mancala.grid(row=0, column=8, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
-
+        # player 2's row (sets up backwards in order to continue flow of play)
         for i in range(13,7,-1):
-            button = tk.Button(root, text='4', command=lambda i=i: self.holeclick(i))
+            button = tk.Button(root, text=f'hole {i}', command=lambda i=i: self.holeclick(i))
             button.grid(row=1, column=14-i, padx=5, pady=5)
             self.buttons.append(button)
+        # player 2's mancala
+        mancala = tk.Button(root, text='0', pady=20, command=lambda i=14: self.holeclick(i))
+        mancala.grid(row=0, column=0, padx=5, pady=5, rowspan=2)
+        self.buttons.append(mancala)
 
     def holeclick(self, i):
         pickedup = int(self.buttons[i].cget("text"))
         print(f'Button {pickedup} clicked')
 
+# asks for a player's name and returns that string
+def playerNameDialog(playernumber):
+    import tkinter as tk
+    from tkinter import simpledialog
+
+    name = simpledialog.askstring(title="Welcome", prompt=f'{playernumber} player name: ')
+
+    return name
+
+
+#runs the actual code
 def main():
     import tkinter as tk
     import random as random
 
-    root = tk.Tk()
-    root.geometry("800x800")
-
-    prompt = tk.Label(text="First player's name")
-    prompt.pack()
-    player1name = tk.Entry(root)
-
-    prompt.config(text="Second player's name")
-    player2name = tk.Entry(root)
-
+    player1name = playerNameDialog("First")
+    player2name = playerNameDialog("Second")
 
     print("Hi", player2name)
 
@@ -62,7 +67,7 @@ def main():
         player2 = player1name
 
     root = tk.Tk()
-    app = ButtonGrid(root, "a", "b")
+    ButtonGrid(root, "a", "b")
     root.mainloop()
 
 if __name__ == "__main__":
