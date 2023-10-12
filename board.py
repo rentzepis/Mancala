@@ -31,18 +31,20 @@ class ButtonGrid:
     # returns the # of stones in the specified hole
     def getStoneCount(self,i):
         holeCount = int(self.buttons[i].cget("text"))
+        return holeCount
 
     def incrementStoneCount(self, i):
         old = self.getStoneCount(i)
-        self.buttons[i].config(text=(i+1))
+        self.buttons[i].config(text=(old+1))
 
     def holeClick(self, i):
-        self.buttons[i].config(text=0)
         pickedup = int(self.buttons[i].cget("text"))
-        print(i)
-        while pickedup != 0:
-            self.incrementStoneCount(i+1)
-            pickedup=pickedup-1
+        self.buttons[i].config(text=0)
+        for x in range(pickedup):
+            self.incrementStoneCount(i+x+1)
+
+
+
 
 # asks for a player's name and returns that string
 def playerNameDialog(playernumber):
