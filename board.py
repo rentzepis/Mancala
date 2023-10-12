@@ -41,7 +41,9 @@ class ButtonGrid:
         pickedup = int(self.buttons[i].cget("text"))
         self.buttons[i].config(text=0)
         for x in range(pickedup):
-            self.incrementStoneCount(i+x+1)
+            i = i + 1
+            self.incrementStoneCount(i)
+
 
 
 
