@@ -38,11 +38,18 @@ class ButtonGrid:
         self.buttons[i].config(text=(old+1))
 
     def holeClick(self, i):
-        pickedup = int(self.buttons[i].cget("text"))
-        self.buttons[i].config(text=0)
-        for x in range(pickedup):
-            i = i + 1
-            self.incrementStoneCount(i)
+        turn = 1
+        if (turn==1 and i not in range(6)) or (turn==2 and i not in range(7,13)):
+            tk.messagebox.showerror(title='error', message='pick a hole in your own side')
+            return "error"
+
+        import time
+        pickedup = self.getStoneCount(i)
+        while self.getStoneCount(i) != 0:
+            self.buttons[i].config(text=0)
+            for x in range(pickedup):
+                i = i + 1
+                self.incrementStoneCount(i)
 
 
 
@@ -85,6 +92,7 @@ def main():
 
     root = tk.Tk()
     ButtonGrid(root, "a", "b")
+
     root.mainloop()
 
 if __name__ == "__main__":
