@@ -34,14 +34,14 @@ class ButtonGrid:
 
 
     def incrementStoneCount(self, i):
-        old = getStoneCount(i)
+        old = self.getStoneCount(i)
         self.buttons[i].config(text=(i+1))
 
     def holeClick(self, i):
         pickedup = int(self.buttons[i].cget("text"))
         while pickedup != 0:
-            i=i+1
-
+            self.incrementStoneCount(i+1)
+            pickedup=pickedup-1
 # asks for a player's name and returns that string
 def playerNameDialog(playernumber):
     import tkinter as tk
