@@ -42,6 +42,7 @@ class ButtonGrid:
         while pickedup != 0:
             self.incrementStoneCount(i+1)
             pickedup=pickedup-1
+
 # asks for a player's name and returns that string
 def playerNameDialog(playernumber):
     import tkinter as tk
