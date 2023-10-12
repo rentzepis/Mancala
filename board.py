@@ -28,6 +28,10 @@ class ButtonGrid:
         mancala.grid(row=0, column=0, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
 
+    def getStoneCount(self,i):
+        holeCount = int(self.buttons[i].cget("text"))
+
+
     def holeclick(self, i):
         pickedup = int(self.buttons[i].cget("text"))
         print(f'Button {pickedup} clicked')
@@ -58,6 +62,7 @@ def main():
     print("2")
     print("1")
 
+# random coin flip determines first player
     coinFlip = random.randint(0, 1)
     if coinFlip == 0:
         player1 = player1name
