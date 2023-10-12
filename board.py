@@ -11,7 +11,7 @@ class ButtonGrid:
 
         # player 1's row
         for i in range(6):
-            button = tk.Button(root, text=f'hole {i}', command=lambda i=i: self.holeclick(i))
+            button = tk.Button(root, text='4', command=lambda i=i: self.holeclick(i))
             button.grid(row=0, column=i+1, padx=5, pady=5)
             self.buttons.append(button)
         # player 1's mancala
@@ -20,7 +20,7 @@ class ButtonGrid:
         self.buttons.append(mancala)
         # player 2's row (sets up backwards in order to continue flow of play)
         for i in range(13,7,-1):
-            button = tk.Button(root, text=f'hole {i}', command=lambda i=i: self.holeclick(i))
+            button = tk.Button(root, text='4', command=lambda i=i: self.holeclick(i))
             button.grid(row=1, column=14-i, padx=5, pady=5)
             self.buttons.append(button)
         # player 2's mancala
