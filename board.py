@@ -6,7 +6,6 @@ class ButtonGrid:
     def __init__(self, root, p1, p2):
         self.player1 = p1
         self.player2 = p2
-
         self.buttons = []
 
         # player 1's row
@@ -54,7 +53,6 @@ class ButtonGrid:
 
 
 
-
 # asks for a player's name and returns that string
 def playerNameDialog(playernumber):
     import tkinter as tk
@@ -75,14 +73,14 @@ def main():
 
     print("Hi", player2name)
 
-    print("Now we will flip a coin to decide who goes first")
+    tk.messagebox.showerror(title='error', message="Now we will flip a coin to decide who goes first")
     print("Ready...")
     print("3")
     print("2")
     print("1")
 
 # random coin flip determines first player
-    coinFlip = random.randint(0, 1)
+    coinFlip = random.randint(0, 2)
     if coinFlip == 0:
         player1 = player1name
         player2 = player2name
