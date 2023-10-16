@@ -48,8 +48,9 @@ class ButtonGrid:
             self.buttons[i].config(text=0)
             for x in range(pickedup):
                 i = i + 1
+                if i == 15:
+                    i = 0
                 self.incrementStoneCount(i)
-
 
 
 
@@ -59,7 +60,6 @@ def playerNameDialog(playernumber):
     from tkinter import simpledialog
 
     name = simpledialog.askstring(title="Welcome", prompt=f'{playernumber} player name: ')
-
     return name
 
 
@@ -73,7 +73,7 @@ def main():
 
     print("Hi", player2name)
 
-    tk.messagebox.showerror(title='error', message="Now we will flip a coin to decide who goes first")
+    tk.messagebox.showerror(title='YAY', message="Now we will flip a coin to decide who goes first")
     print("Ready...")
     print("3")
     print("2")
