@@ -1,4 +1,5 @@
 import tkinter as tk
+from time import sleep
 
 class ButtonGrid:
     # sets up board
@@ -10,20 +11,20 @@ class ButtonGrid:
 
         # player 1's row
         for i in range(6):
-            button = tk.Button(root, text='4', command=lambda i=i: self.holeClick(i))
+            button = tk.Button(root, text='4', fg="red", command=lambda i=i: self.holeClick(i))
             button.grid(row=0, column=i+1, padx=5, pady=5)
             self.buttons.append(button)
         # player 1's mancala
-        mancala = tk.Button(root, text='0', pady=20, command=lambda i=6: self.holeClick(i))
+        mancala = tk.Button(root, text='0', pady=20, fg="red")
         mancala.grid(row=0, column=8, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
         # player 2's row (sets up backwards in order to continue flow of play)
         for i in range(7,13):
-            button = tk.Button(root, text='4', command=lambda i=i: self.holeClick(i))
+            button = tk.Button(root, text='4', fg="blue", command=lambda i=i: self.holeClick(i))
             button.grid(row=1, column=13-i, padx=5, pady=5)
             self.buttons.append(button)
         # player 2's mancala
-        mancala = tk.Button(root, text='0', pady=20, command=lambda i=13: self.holeClick(i))
+        mancala = tk.Button(root, text='0', pady=20, fg="blue")
         mancala.grid(row=0, column=0, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
 
@@ -42,15 +43,25 @@ class ButtonGrid:
             tk.messagebox.showerror(title='error', message='pick a hole in your own side')
             return "error"
 
-        import time
         pickedup = self.getStoneCount(i)
-        while self.getStoneCount(i) != 0:
+
+        while pickedup != 0:
             self.buttons[i].config(text=0)
-            for x in range(pickedup):
-                i = i + 1
-                if i == 15:
-                    i = 0
+            while pickedup != 0:
+                i = (i + 1)%14
+                pickedup = pickedup-1
+                print(i, ":", self.getStoneCount(i), "pickedup =", pickedup)
+                if pickedup == 0:
+                    pickedup = self.getStoneCount(i)
+                    self.incrementStoneCount(i)
+                    break
                 self.incrementStoneCount(i)
+                sleep(0.25)
+
+            print(pickedup)
+
+
+
 
 
 
@@ -73,13 +84,13 @@ def main():
 
     print("Hi", player2name)
 
-    tk.messagebox.showerror(title='YAY', message="Now we will flip a coin to decide who goes first")
+    tk.messagebox.showinfo(title='Mancala', message="Now we will flip a coin to decide who goes first!")
     print("Ready...")
     print("3")
     print("2")
     print("1")
 
-# random coin flip determines first player
+    # random coin flip determines first player
     coinFlip = random.randint(0, 2)
     if coinFlip == 0:
         player1 = player1name
@@ -90,6 +101,8 @@ def main():
 
     root = tk.Tk()
     ButtonGrid(root, "a", "b")
+    player1side = tk.Label(text=f"{player1}")
+    player1side.grid(row=2)
 
     root.mainloop()
 
