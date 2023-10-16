@@ -1,7 +1,7 @@
 import tkinter as tk
 
 class ButtonGrid:
-    # sets up board
+    # sets up the board
     # root is window to be written into (Tk object), p1 is player 1's name (str), p2 is player 2's name (str)
     def __init__(self, root, p1, p2):
         self.player1 = p1
