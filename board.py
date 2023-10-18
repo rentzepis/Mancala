@@ -9,6 +9,8 @@ class ButtonGrid:
         self.player2 = p2
         self.buttons = []
 
+        self.player1turn = True
+
         # player 1's row
         for i in range(6):
             button = tk.Button(root, text='4', fg="red", command=lambda i=i: self.holeClick(i))
@@ -28,6 +30,9 @@ class ButtonGrid:
         mancala.grid(row=0, column=0, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
 
+        # player turn label
+        label = tk.Label(root, text=f"{self.player1}")
+
     # returns the # of stones in the specified hole
     def getStoneCount(self,i):
         holeCount = int(self.buttons[i].cget("text"))
@@ -38,9 +43,13 @@ class ButtonGrid:
         self.buttons[i].config(text=(old+1))
 
     def holeClick(self, i):
-        turn = 1
-        if (turn==1 and i not in range(6)) or (turn==2 and i not in range(7,13)):
-            tk.messagebox.showerror(title='error', message='pick a hole in your own side')
+        if self.player1turn: # if it is player 1's turn
+            turn = 1
+        else:
+            turn = 2
+
+        if (turn==1 and i not in range(6)) or (turn==2 and i not in range(7,13)) or i==6 or i ==13:
+            tk.messagebox.showerror(title='error', message='Please pick a valid hole.')
             return "error"
 
         pickedup = self.getStoneCount(i)
@@ -51,14 +60,25 @@ class ButtonGrid:
                 i = (i + 1)%14
                 pickedup = pickedup-1
                 print(i, ":", self.getStoneCount(i), "pickedup =", pickedup)
-                if pickedup == 0:
-                    pickedup = self.getStoneCount(i)
-                    self.incrementStoneCount(i)
-                    break
+
+                if (i == 13 and turn == 1) or (i == 6 and turn == 2):
+                    i = i + 1
+                    continue
+
                 self.incrementStoneCount(i)
+
+                # runs out of stones
+                if pickedup == 0:
+                    # if runs out of stones on a mancala
+                    if (i == 6 and turn == 1) or (i == 13 and turn == 2):
+                        return True
+                    pickedup = self.getStoneCount(i)
+                    break
+
+
                 sleep(0.25)
 
-            print(pickedup)
+        return False
 
 
 
