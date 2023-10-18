@@ -20,3 +20,4 @@ else:
     player2 = player1Name
 
 print(player1, ", You go first!")
+#slay
