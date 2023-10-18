@@ -48,9 +48,9 @@ class ButtonGrid:
         else:
             turn = 2
 
-        if (turn==1 and i not in range(6)) or (turn==2 and i not in range(7,13)) or i==6 or i ==13:
-            tk.messagebox.showerror(title='error', message='Please pick a valid hole.')
-            return "error"
+        #if (turn==1 and i not in range(6)) or (turn==2 and i not in range(7,13)) or i==6 or i ==13:
+        #    tk.messagebox.showerror(title='error', message='Please pick a valid hole.')
+        #    return "error"
 
         pickedup = self.getStoneCount(i)
 
@@ -65,16 +65,17 @@ class ButtonGrid:
                     i = i + 1
                     continue
 
-                self.incrementStoneCount(i)
+                #self.incrementStoneCount(i)
 
                 # runs out of stones
                 if pickedup == 0:
                     # if runs out of stones on a mancala
                     if (i == 6 and turn == 1) or (i == 13 and turn == 2):
+                        self.incrementStoneCount(i)
                         return True
                     pickedup = self.getStoneCount(i)
                     break
-
+                self.incrementStoneCount(i)
 
                 sleep(0.25)
 
