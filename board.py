@@ -10,8 +10,8 @@ class ButtonGrid:
         self.buttons = []
 
         # player turn label
-        self.label = tk.Label(root, text=f"{self.player1}'s turn")
-        self.label.grid(row=3)
+        self.label = tk.Label(root, text=f"{self.player1}'s turn", fg="red")
+        self.label.grid(row=3, columnspan=9)
         
         self.player1turn = True
 
@@ -47,7 +47,6 @@ class ButtonGrid:
     def holeClick(self, i):
         if self.player1turn: # if it is player 1's turn
             turn = 1
-
         else:
             turn = 2
 
@@ -60,9 +59,10 @@ class ButtonGrid:
         while pickedup != 0:
             self.buttons[i].config(text=0)
             while pickedup != 0:
-                i = (i + 1)%14
+                i = (i+1)%14
 
                 if (i == 13 and turn == 1) or (i == 6 and turn == 2):
+                    print(turn)
                     i = i + 1
                     continue
 
@@ -83,11 +83,12 @@ class ButtonGrid:
                     break
                 self.incrementStoneCount(i)
 
-                sleep(0.25)
+                sleep(0.2)
         if self.label.cget("text") == f"{self.player1}'s turn":
-            self.label.config(text=f"{self.player2}'s turn")
+            self.label.config(text=f"{self.player2}'s turn", fg="blue")
         else:
-            self.label.config(text=f"{self.player1}'s turn")
+            self.label.config(text=f"{self.player1}'s turn", fg="red")
+        self.player1turn = not self.player1turn
         return False
 
 
@@ -112,13 +113,7 @@ def main():
     player1name = playerNameDialog("First")
     player2name = playerNameDialog("Second")
 
-    print("Hi", player2name)
-
     tk.messagebox.showinfo(title='Mancala', message="Now we will flip a coin to decide who goes first!")
-    print("Ready...")
-    print("3")
-    print("2")
-    print("1")
 
     # random coin flip determines first player
     coinFlip = random.randint(0, 2)
@@ -130,7 +125,7 @@ def main():
         player2 = player1name
 
     root = tk.Tk()
-    ButtonGrid(root, "a", "b")
+    ButtonGrid(root, player1, player2)
 
     root.mainloop()
 
