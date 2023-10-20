@@ -12,27 +12,27 @@ class ButtonGrid:
 
         # player turn label and color
         myFont = font.Font(size=30)
-        self.label = tk.Label(root, text=f"{self.player1}'s turn", fg="red", font=myFont)
+        self.label = tk.Label(root, text=f"{self.player1}'s turn", fg="red", font=myFont, pady=6)
         self.label.grid(row=3, columnspan=9)
         
         self.player1turn = True
 
         # player 1's row is top row and red
         for i in range(6):
-            button = tk.Button(root, text='4', fg="red", height=8, width=16, font=myFont, command=lambda i=i: self.holeClick(i))
+            button = tk.Button(root, text='4', fg="red", height=2, width=5, font=myFont, command=lambda i=i: self.holeClick(i))
             button.grid(row=0, column=i+1, padx=5, pady=5)
             self.buttons.append(button)
         # player 1's mancala
-        mancala = tk.Button(root, text='0', pady=20, fg="red", height=16, width=16, font=myFont)
+        mancala = tk.Button(root, text='0', pady=20, fg="red", height=4, width=5, font=myFont)
         mancala.grid(row=0, column=8, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
         # player 2's row (sets up backwards in order to continue flow of play)
         for i in range(7,13):
-            button = tk.Button(root, text='4', fg="blue", height=8, width=16, font=myFont, command=lambda i=i: self.holeClick(i))
+            button = tk.Button(root, text='4', fg="blue", height=2, width=5, font=myFont, command=lambda i=i: self.holeClick(i))
             button.grid(row=1, column=13-i, padx=5, pady=5)
             self.buttons.append(button)
         # player 2's mancala
-        mancala = tk.Button(root, text='0', pady=20, fg="blue", height=16, width=16, font=myFont)
+        mancala = tk.Button(root, text='0', pady=20, fg="blue", height=4, width=5, font=myFont)
         mancala.grid(row=0, column=0, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
 
