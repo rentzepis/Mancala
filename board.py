@@ -9,6 +9,10 @@ class ButtonGrid:
         self.player2 = p2
         self.buttons = []
 
+        # player turn label
+        self.label = tk.Label(root, text=f"{self.player1}'s turn")
+        self.label.grid(row=3)
+        
         self.player1turn = True
 
         # player 1's row
@@ -30,8 +34,6 @@ class ButtonGrid:
         mancala.grid(row=0, column=0, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
 
-        # player turn label
-        label = tk.Label(root, text=f"{self.player1}")
 
     # returns the # of stones in the specified hole
     def getStoneCount(self,i):
@@ -45,6 +47,7 @@ class ButtonGrid:
     def holeClick(self, i):
         if self.player1turn: # if it is player 1's turn
             turn = 1
+
         else:
             turn = 2
 
@@ -58,12 +61,15 @@ class ButtonGrid:
             self.buttons[i].config(text=0)
             while pickedup != 0:
                 i = (i + 1)%14
-                pickedup = pickedup-1
-                print(i, ":", self.getStoneCount(i), "pickedup =", pickedup)
 
                 if (i == 13 and turn == 1) or (i == 6 and turn == 2):
                     i = i + 1
                     continue
+
+                pickedup = pickedup-1
+                print(i, ":", self.getStoneCount(i), "pickedup =", pickedup)
+
+
 
                 #self.incrementStoneCount(i)
 
@@ -78,7 +84,10 @@ class ButtonGrid:
                 self.incrementStoneCount(i)
 
                 sleep(0.25)
-
+        if self.label.cget("text") == f"{self.player1}'s turn":
+            self.label.config(text=f"{self.player2}'s turn")
+        else:
+            self.label.config(text=f"{self.player1}'s turn")
         return False
 
 
@@ -122,8 +131,6 @@ def main():
 
     root = tk.Tk()
     ButtonGrid(root, "a", "b")
-    player1side = tk.Label(text=f"{player1}")
-    player1side.grid(row=2)
 
     root.mainloop()
 
