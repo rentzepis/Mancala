@@ -19,20 +19,20 @@ class ButtonGrid:
 
         # player 1's row is top row and red
         for i in range(6):
-            button = tk.Button(root, text='4', fg="red", command=lambda i=i: self.holeClick(i))
+            button = tk.Button(root, text='4', fg="red", height=8, width=16, font=myFont, command=lambda i=i: self.holeClick(i))
             button.grid(row=0, column=i+1, padx=5, pady=5)
             self.buttons.append(button)
-        # player 1's mancala and set to 0
-        mancala = tk.Button(root, text='0', pady=20, fg="red")
+        # player 1's mancala
+        mancala = tk.Button(root, text='0', pady=20, fg="red", height=16, width=16, font=myFont)
         mancala.grid(row=0, column=8, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
         # player 2's row (sets up backwards in order to continue flow of play)
         for i in range(7,13):
-            button = tk.Button(root, text='4', fg="blue", command=lambda i=i: self.holeClick(i))
+            button = tk.Button(root, text='4', fg="blue", height=8, width=16, font=myFont, command=lambda i=i: self.holeClick(i))
             button.grid(row=1, column=13-i, padx=5, pady=5)
             self.buttons.append(button)
         # player 2's mancala
-        mancala = tk.Button(root, text='0', pady=20, fg="blue")
+        mancala = tk.Button(root, text='0', pady=20, fg="blue", height=16, width=16, font=myFont)
         mancala.grid(row=0, column=0, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
 
@@ -70,9 +70,6 @@ class ButtonGrid:
 
                 pickedup = pickedup-1
 
-
-
-                #s
 
                 # runs out of stones
                 if pickedup == 0:
@@ -112,6 +109,8 @@ def main():
 
     player1name = playerNameDialog("First")
     player2name = playerNameDialog("Second")
+
+    tk.messagebox.showinfo(title='Mancala', message="Now we will flip a coin to decide who goes first!")
 
     # random coin flip determines first player
     coinFlip = random.randint(0, 2)
