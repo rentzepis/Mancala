@@ -64,7 +64,7 @@ class ButtonGrid:
                 i = (i+1)%14
                 #will help when making the code wrap through the array
                 if (i == 13 and turn == 1) or (i == 6 and turn == 2):
-                    print(turn)
+
                     i = i + 1
                     continue
 
