@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.font as font
 from time import sleep
 
 class ButtonGrid:
@@ -10,7 +11,8 @@ class ButtonGrid:
         self.buttons = []
 
         # player turn label and color
-        self.label = tk.Label(root, text=f"{self.player1}'s turn", fg="red")
+        myFont = font.Font(size=30)
+        self.label = tk.Label(root, text=f"{self.player1}'s turn", fg="red", font=myFont)
         self.label.grid(row=3, columnspan=9)
         
         self.player1turn = True
@@ -60,7 +62,7 @@ class ButtonGrid:
             self.buttons[i].config(text=0)
             while pickedup != 0:
                 i = (i+1)%14
-
+                #will help when making the code wrap through the array
                 if (i == 13 and turn == 1) or (i == 6 and turn == 2):
                     print(turn)
                     i = i + 1
@@ -70,7 +72,7 @@ class ButtonGrid:
 
 
 
-                #self.incrementStoneCount(i)
+                #s
 
                 # runs out of stones
                 if pickedup == 0:
