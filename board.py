@@ -12,18 +12,18 @@ class ButtonGrid:
 
         # player turn label and color
         myFont = font.Font(size=30)
-        self.label = tk.Label(root, text=f"{self.player1}'s turn", fg="red", font=myFont, pady=6)
+        self.label = tk.Label(root, text=f"{self.player1}'s turn", fg="green", font=myFont, pady=6)
         self.label.grid(row=3, columnspan=9)
         
         self.player1turn = True
 
-        # player 1's row is top row and red
+        # player 1's row is top row and green
         for i in range(6):
-            button = tk.Button(root, text='4', fg="red", height=2, width=5, font=myFont, command=lambda i=i: self.holeClick(i))
+            button = tk.Button(root, text='4', fg="green", height=2, width=5, font=myFont, command=lambda i=i: self.holeClick(i))
             button.grid(row=0, column=i+1, padx=5, pady=5)
             self.buttons.append(button)
         # player 1's mancala
-        mancala = tk.Button(root, text='0', pady=20, fg="red", height=4, width=5, font=myFont)
+        mancala = tk.Button(root, text='0', pady=20, fg="green", height=4, width=5, font=myFont)
         mancala.grid(row=0, column=8, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
         # player 2's row (sets up backwards in order to continue flow of play)
@@ -86,7 +86,7 @@ class ButtonGrid:
         if self.label.cget("text") == f"{self.player1}'s turn":
             self.label.config(text=f"{self.player2}'s turn", fg="blue")
         else:
-            self.label.config(text=f"{self.player1}'s turn", fg="red")
+            self.label.config(text=f"{self.player1}'s turn", fg="green")
         self.player1turn = not self.player1turn
         return False
 
@@ -120,6 +120,8 @@ def main():
     else:
         player1 = player2name
         player2 = player1name
+
+    tk.messagebox.showinfo(title='Mancala', message=f"{player1} starts!")
 
     root = tk.Tk()
     ButtonGrid(root, player1, player2)
