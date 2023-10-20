@@ -46,6 +46,16 @@ class ButtonGrid:
         old = self.getStoneCount(i)
         self.buttons[i].config(text=(old+1))
 
+    def checkWin(self, turn):
+        sum= 0
+        for x in range (0,5):
+            sum =+ self.buttons[i]
+            i= i+1
+        for x in range (7,13):
+            sum =+ self.buttons[i]
+            i= i+1
+        if sum == 0
+            Win = True
     def holeClick(self, i):
         if self.player1turn: # if it is player 1's turn
             turn = 1
@@ -82,6 +92,7 @@ class ButtonGrid:
                 self.incrementStoneCount(i)
 
                 sleep(0.2)
+
         #board shows which players turn it is in their assigned color
         if self.label.cget("text") == f"{self.player1}'s turn":
             self.label.config(text=f"{self.player2}'s turn", fg="blue")
