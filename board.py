@@ -2,25 +2,25 @@ import tkinter as tk
 from time import sleep
 
 class ButtonGrid:
-    # sets up the board
+    # sets up the game board
     # root is window to be written into (Tk object), p1 is player 1's name (str), p2 is player 2's name (str)
     def __init__(self, root, p1, p2):
         self.player1 = p1
         self.player2 = p2
         self.buttons = []
 
-        # player turn label
+        # player turn label and color
         self.label = tk.Label(root, text=f"{self.player1}'s turn", fg="red")
         self.label.grid(row=3, columnspan=9)
         
         self.player1turn = True
 
-        # player 1's row
+        # player 1's row is top row and red
         for i in range(6):
             button = tk.Button(root, text='4', fg="red", command=lambda i=i: self.holeClick(i))
             button.grid(row=0, column=i+1, padx=5, pady=5)
             self.buttons.append(button)
-        # player 1's mancala
+        # player 1's mancala and set to 0
         mancala = tk.Button(root, text='0', pady=20, fg="red")
         mancala.grid(row=0, column=8, padx=5, pady=5, rowspan=2)
         self.buttons.append(mancala)
@@ -67,7 +67,6 @@ class ButtonGrid:
                     continue
 
                 pickedup = pickedup-1
-                print(i, ":", self.getStoneCount(i), "pickedup =", pickedup)
 
 
 
@@ -84,14 +83,13 @@ class ButtonGrid:
                 self.incrementStoneCount(i)
 
                 sleep(0.2)
+        #board shows which players turn it is in their assigned color
         if self.label.cget("text") == f"{self.player1}'s turn":
             self.label.config(text=f"{self.player2}'s turn", fg="blue")
         else:
             self.label.config(text=f"{self.player1}'s turn", fg="red")
         self.player1turn = not self.player1turn
         return False
-
-
 
 
 
@@ -112,8 +110,6 @@ def main():
 
     player1name = playerNameDialog("First")
     player2name = playerNameDialog("Second")
-
-    tk.messagebox.showinfo(title='Mancala', message="Now we will flip a coin to decide who goes first!")
 
     # random coin flip determines first player
     coinFlip = random.randint(0, 2)
