@@ -118,6 +118,7 @@ class ButtonGrid:
                         self.incrementStoneCount(i)
                         return True
                     pickedup = self.getStoneCount(i)
+                    self.incrementStoneCount(i)
                     break
                 self.incrementStoneCount(i)
                 sleep(0.1)
