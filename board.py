@@ -97,8 +97,6 @@ class ButtonGrid:
         else:
             turn = 2
 
-
-
         pickedup = self.getStoneCount(i)
         #while there are still stones left to be distributed
         while pickedup != 0:
@@ -122,9 +120,7 @@ class ButtonGrid:
                     pickedup = self.getStoneCount(i)
                     break
                 self.incrementStoneCount(i)
-                sleep(0.2)
-
-        self.stealSide()
+                sleep(0.1)
 
         #board shows which players turn it is in their assigned color
         if self.label.cget("text") == f"{self.player1}'s turn":
@@ -132,6 +128,9 @@ class ButtonGrid:
         else:
             self.label.config(text=f"{self.player1}'s turn", fg="green")
         self.player1turn = not self.player1turn
+
+        self.stealSide()
+
         return False
 
 
