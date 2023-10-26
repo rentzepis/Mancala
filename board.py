@@ -46,6 +46,35 @@ class ButtonGrid:
         old = self.getStoneCount(i)
         self.buttons[i].config(text=(old+1))
 
+    def winner(self):
+        score1 = self.getStoneCount(6)
+        score2 = self.getStoneCount(13)
+        #player 1's score is bigger
+        if score1 > score2:
+            tk.messagebox.showinfo(title='Winner', message=f"{self.player1} wins!")
+        else:
+            tk.messagebox.showinfo(title='Winner', message=f"{self.player2} wins!")
+
+    #stealing mechanism when one side is fully empty
+    def stealSide(self):
+        sum1 = 0
+        sum2 = 0
+
+        #checks player sides to see if either has no stones
+        for x in range(0,6):
+            sum1 += self.getStoneCount(x)
+            sum2 += self.getStoneCount(x+7)
+
+        # player 1 or 2 side no stones --> means one player wins, adds the
+        # score of the other player's holes to their mancala
+        if sum1 == 0:
+            self.buttons[6].config(text=(self.getStoneCount(6)+sum2))
+            self.winner()
+        elif sum2 == 0:
+            self.buttons[13].config(text=(self.getStoneCount(13)+sum1))
+            self.winner()
+
+
     #checks if a player has cleared their side of the board and who won
     def checkWin(self, turn):
         sum= 0
@@ -69,15 +98,16 @@ class ButtonGrid:
             turn = 2
 
 
-        pickedup = self.getStoneCount(i)
 
+        pickedup = self.getStoneCount(i)
+        #while there are still stones left to be distributed
         while pickedup != 0:
             self.buttons[i].config(text=0)
+            #inner loop for distributing stones (allows for chained pickups)
             while pickedup != 0:
                 i = (i+1)%14
-                #will help when making the code wrap through the array
+                # skips opposing player's mancala
                 if (i == 13 and turn == 1) or (i == 6 and turn == 2):
-
                     i = i + 1
                     continue
 
@@ -92,8 +122,9 @@ class ButtonGrid:
                     pickedup = self.getStoneCount(i)
                     break
                 self.incrementStoneCount(i)
-
                 sleep(0.2)
+
+        self.stealSide()
 
         #board shows which players turn it is in their assigned color
         if self.label.cget("text") == f"{self.player1}'s turn":
@@ -106,14 +137,11 @@ class ButtonGrid:
 
 # asks for a player's name and returns that string
 def playerNameDialog(playernumber):
-    import tkinter as tk
     from tkinter import simpledialog
-
-    name = simpledialog.askstring(title="Welcome", prompt=f'{playernumber} player name: ')
-    return name
+    return simpledialog.askstring(title="Welcome", prompt=f'{playernumber} player name: ')
 
 
-#runs the actual code
+#handler to initialize board and players
 def main():
     import tkinter as tk
     import random as random
@@ -139,5 +167,6 @@ def main():
 
     root.mainloop()
 
+#runs main code
 if __name__ == "__main__":
     main()
