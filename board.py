@@ -46,25 +46,28 @@ class ButtonGrid:
         old = self.getStoneCount(i)
         self.buttons[i].config(text=(old+1))
 
+    #checks if a player has cleared their side of the board and who won
     def checkWin(self, turn):
         sum= 0
+        #adding up stones in player1 row
         for x in range (0,5):
             sum =+ self.buttons[i]
             i= i+1
+        #adding up stones in player2 row
         for x in range (7,13):
             sum =+ self.buttons[i]
             i= i+1
-        if sum == 0
+        #checks addtion of stones in each players row
+        if sum == 0:
             Win = True
+
+    #the function that places stones based on which hole you click and how many stones it was
     def holeClick(self, i):
         if self.player1turn: # if it is player 1's turn
             turn = 1
         else:
             turn = 2
 
-        #if (turn==1 and i not in range(6)) or (turn==2 and i not in range(7,13)) or i==6 or i ==13:
-        #    tk.messagebox.showerror(title='error', message='Please pick a valid hole.')
-        #    return "error"
 
         pickedup = self.getStoneCount(i)
 
@@ -79,7 +82,6 @@ class ButtonGrid:
                     continue
 
                 pickedup = pickedup-1
-
 
                 # runs out of stones
                 if pickedup == 0:
@@ -100,8 +102,6 @@ class ButtonGrid:
             self.label.config(text=f"{self.player1}'s turn", fg="green")
         self.player1turn = not self.player1turn
         return False
-
-
 
 
 # asks for a player's name and returns that string
